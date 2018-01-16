@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>初始化配置</title>
+
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+
+    <link href="../../webapp/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../webapp/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../webapp/assets/css/tools.css" rel="stylesheet" />
+
+    <script src="../../webapp/assets/js/jquery.min.js"></script>
+    <script src="../../webapp/assets/js/popper.js"></script>
+    <script src="../../webapp/assets/js/bootstrap.min.js"></script>
+    <script src="../../webapp/assets/js/tools.js"></script>
+</head>
+<body>
+    <div id="alert" class="alert alert-danger" role="alert" style="display: none; position: fixed; top: 20px; margin: 0 auto; width: 100%;z-index: 1080;">
+    </div>
+    <div class="container">
+        <div class="col flex-column justify-content-center align-content-center" style="display: flex;">
+            <div class="w-100 bg-secondary p-3 text-white">
+                <h4 id="title">初始化配置</h4>
+            </div>
+            <table class="table table-bordered table-striped table-dark">
+                <tbody id="info">
+                <tr>
+                    <td>操作系统</td>
+                    <td id="os"></td>
+                </tr>
+                <tr>
+                    <td>Java</td>
+                    <td id="java"></td>
+                </tr>
+                <tr>
+                    <td>数据库</td>
+                    <td id="database"></td>
+                </tr>
+                </tbody>
+                <tbody id="root" class="border-0" style="display: none;">
+                <tr>
+                    <td style="width: 200px;">用户名</td>
+                    <td><input type="text" id="username" /><span class="text-warning ml-1" id="username_tip"></span></td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">密码</td>
+                    <td><input type="password" id="password" /><span class="text-warning" id="password_tip"></span></td>
+                </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-secondary" id="next">下一步</button>
+            <button class="btn btn-secondary" id="complete" style="display: none;">完成</button>
+        </div>
+    </div>
+
+    <script>
+        let username, password;
+        let toast = Tools.toast;
+
+        $(document).ready(function () {
+            init.info();
+
+            $('#next').click(function () {
+                $('#title').html('创建管理员');
+                $('#info, #next').hide();
+                $('#root, #complete').show();
+            });
+
+            $('#username').on('keyup', function () {
+                username = this.value.trim();
+                $('#username_tip').html(validator.username(username) ? '' : '用户名由6-18位小写字母、数字及特殊字符_组成，首位必须为字母');
+            });
+
+            $('#password').on('keyup', function () {
+                password = this.value.trim();
+                $('#password_tip').html(validator.password(password) ? '' : '密码由6-18位小写字母、数字及特殊字符_组成');
+            });
+
+            $('#complete').click(function () {
+                if(validator.username(username) && validator.password(password)) {
+                    init.root();
+                }
+            });
+        });
+
+        let validator = {
+            username: function (username) {
+                let pattern = /^[a-z]+[a-z0-9_]*$/;
+
+                return pattern.test(username) && username.length >= 6 && username.length <= 18;
+            },
+            password: function (password) {
+                let pattern = /^[a-z0-9_]{6,18}$/;
+
+                return pattern.test(password);
+            }
+        };
+
+        let init = {
+            info: function () {
+                $.ajax({
+                    url: 'init/info',
+                    type: 'GET',
+                    success: function (response) {
+                        if (response.code === 0) {
+                            $('#os').html(response.payload['os.name']);
+                            $('#java').html(response.payload['java.version']);
+                            $('#database').html(response.payload['database.name'] + ' ' + response.payload['database.version']);
+                        }
+                    }
+                })
+            },
+            root: function () {
+                let data = JSON.stringify({'username': username, 'password': password});
+
+                $.ajax({
+                    url: 'init/root',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: data,
+                    success: function (response) {
+                        if (response.code === 0) {
+                            window.location.href = '/';
+                        } else {
+                            toast.error(response.msg);
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

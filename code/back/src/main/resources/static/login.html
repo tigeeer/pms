@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/tools.css" rel="stylesheet" />
+    <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/tools.js"></script>
+
+    <style>
+        .full {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            background-size: cover;
+            background: url(assets/img/login-bg.jpeg) 50%;
+        }
+
+        .img-thumbnail {
+            width: 5rem;
+            height: 5rem;
+            border-width: 0;
+        }
+
+        input {
+            border-width: 0;
+            background-color: transparent;
+            outline: none;
+            margin: 0.25rem 0 0.25rem 1rem;
+            border-bottom: 2px solid #dc3545;
+            color: rgba(0, 0, 0, 1);
+            flex-grow: 1;
+        }
+
+        input:focus {
+            border-bottom: 2px solid #dc3545;
+        }
+
+        input:-webkit-autofill {
+            box-shadow: 0 0 0 1000px #fff inset;
+        }
+
+        .input-container {
+            width: 100%;
+            padding: 0.5rem 0;
+            border-radius: 4px;
+        }
+
+        .input-container i {
+            font-size: 1.5rem;
+        }
+
+        .login-container {
+            padding: 1rem 2rem;
+            border-radius: 4px;
+        }
+
+        .info-container {
+            padding: 0.5rem 0;
+        }
+
+        .info-container span {
+            cursor: pointer;
+            font-size: 0.7rem;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid full d-flex justify-content-center align-items-center">
+        <div class="login-container bg-white d-flex flex-column justify-content-center align-items-center">
+            <img src="assets/img/logo.jpg" class="img-thumbnail" />
+
+            <div class="input-container d-flex justify-content-center align-items-center">
+                <i class="fa fa-user text-danger"></i>
+                <input type="text" id="username" />
+            </div>
+
+            <div class="input-container d-flex justify-content-center align-items-center">
+                <i class="fa fa-lock text-danger"></i>
+                <input type="password" id="password" />
+            </div>
+
+            <div class="input-container d-flex justify-content-center align-items-center">
+                <i class="fa fa-shield text-danger"></i>
+                <input type="text" id="imageCode" />
+                <img src="imageCode" style="width: 70px; height: 28px; margin-left: 1rem;" onclick="changeImageCode(event)" />
+            </div>
+
+            <div class="w-100 info-container">
+                <span class="pull-left text-danger">注册</span>
+                <span class="pull-right text-danger">忘记密码？</span>
+            </div>
+
+            <button class="btn btn-block btn-danger" onclick="login()">登录</button>
+        </div>
+    </div>
+
+    <script>
+        function changeImageCode(e) {
+            e.target.src = "imageCode?nonce=" + getNonce(8);
+        }
+
+        function getNonce(length) {
+            let characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            let str = "";
+
+            for(let i = 0; i < length; i++) {
+                str += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+
+            return str;
+        }
+
+        function login() {
+            let data = {
+                username: $('#username').val(),
+                password: $('#password').val(),
+                imageCode: $('#imageCode').val()
+            };
+
+            $.ajax({
+                url: 'static.login',
+                type: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                success: function(response) {
+                    if (response.code === 0) {
+                        window.location.href = '/';
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

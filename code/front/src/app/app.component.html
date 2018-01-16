@@ -1,0 +1,13 @@
+<div class="root">
+    <div class="wrapper">
+        <app-sidebar *ngIf="showSidebar"></app-sidebar>
+        <div class="main-panel" [class.main-panel-calc]="showSidebar" >
+            <app-nav></app-nav>
+            <div class="main-content">
+                <div class="card">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

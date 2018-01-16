@@ -1,0 +1,52 @@
+<div class="sidebar" data-color="black" data-image="assets/img/full-screen-image-3.ef9c8d65.jpg">
+    <div class="sidebar-background"
+         style="background-image: url(assets/img/full-screen-image-3.ef9c8d65.jpg"></div>
+    <div class="logo">
+        <a href="#" class="simple-text logo-mini">
+            <div class="logo-img"><img src="assets/img/logo.5d5d9eef.svg" alt="react-logo"></div>
+        </a>
+        <a href="#" class="simple-text logo-normal">Creative Tim</a>
+    </div>
+    <div class="sidebar-wrapper">
+        <div class="user">
+            <div class="photo"><img src="assets/img/default-avatar.jpg" alt="Avatar"></div>
+            <div class="info"><a><span>Taylor Swift</span></a></div>
+        </div>
+        <ul class="nav">
+            <li [routerLink]="['/home']" routerLinkActive="active">
+                <a aria-current="true">
+                    <i class="material-icons">home</i>
+                    <span>{{nameConfig.navHome}}</span>
+                </a>
+            </li>
+            <li [routerLink]="['/project']" routerLinkActive="active">
+                <a aria-current="true">
+                    <i class="material-icons">dashboard</i>
+                    <span>{{nameConfig.navProject}}</span>
+                </a>
+            </li>
+            <li [routerLink]="['/user']" routerLinkActive="active">
+                <a>
+                    <i class="material-icons">person</i>
+                    <span>{{nameConfig.navUser}}</span>
+                </a>
+                <!--<ul class="nav collapse" style="height: 0;">-->
+                    <!--<li class="">-->
+                        <!--<a class="nav-link" aria-current="false" href="">-->
+                            <!--<span class="sidebar-mini"></span>-->
+                            <!--<span class="sidebar-normal">Buttons</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="">-->
+                        <!--<a class="nav-link" aria-current="false" href="">-->
+                            <!--<span class="sidebar-mini"></span>-->
+                            <!--<span class="sidebar-normal">Grid System</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            </li>
+        </ul>
+    </div>
+</div>
+
+
