@@ -1,7 +1,5 @@
 package com.wangjx.pms.controller;
 
-import com.wangjx.common.FilterParam;
-import com.wangjx.pms.constant.UserRole;
 import com.wangjx.pms.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,9 +27,10 @@ public class TemplateController {
         return new ModelAndView("index.html");
     }
 
-    @RequestMapping(value = "/init", method = RequestMethod.GET)
-    public String init() {
-        return userService.getByRoles(new FilterParam(), new Long[]{UserRole.ROOT.getId()}).size() == 0 ? "init" : "redirect:/";
+    @RequestMapping(value = "/init.h", method = RequestMethod.GET)
+    public ModelAndView init() {
+//        return userService.getByRoles(new FilterParam(), new Long[]{UserRole.ROOT.getId()}).size() == 0 ? "init" : "redirect:/";
+        return new ModelAndView("init.html");
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

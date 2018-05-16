@@ -1,4 +1,4 @@
-package com.wangjx.pms.config;
+package com.wangjx.pms.constant;
 
 /**
  * Created by IntelliJ IDEA.

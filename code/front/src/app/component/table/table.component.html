@@ -2,7 +2,7 @@
     <table class="table table-striped">
         <thead class="thead-dark">
         <tr>
-            <th scope="col">
+            <th scope="col" *ngIf="checkbox">
                 <div class="checkbox">
                     <i class="fa fa-circle-thin" (click)="onSelect(-1)" *ngIf="!tableModel.checkAll"></i>
                     <i class="fa fa-check-circle-o" (click)="onSelect(-1)" *ngIf="tableModel.checkAll"></i>
@@ -13,7 +13,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let bodyItem of tableModel.data; let i = index">
-            <td scope="col">
+            <td scope="col" *ngIf="checkbox">
                 <div class="checkbox">
                     <i class="fa fa-circle-thin" (click)="onSelect(i)" *ngIf="!bodyItem.checked"></i>
                     <i class="fa fa-check-circle-o" (click)="onSelect(i)" *ngIf="bodyItem.checked"></i>

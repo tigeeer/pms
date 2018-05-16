@@ -3,7 +3,7 @@ package com.wangjx.pms.controller;
 import com.wangjx.common.exception.CommonException;
 import com.wangjx.common.util.response.Response;
 import com.wangjx.common.util.response.ResponseFactory;
-import com.wangjx.pms.config.SystemProperties;
+import com.wangjx.pms.constant.SystemProperties;
 import com.wangjx.pms.pojo.User;
 import com.wangjx.pms.service.InitService;
 import org.apache.ibatis.session.SqlSessionFactory;

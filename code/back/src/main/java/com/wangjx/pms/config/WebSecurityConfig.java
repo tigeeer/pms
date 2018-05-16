@@ -56,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().formLogin().loginPage("/login").permitAll()
                 .and().logout().logoutSuccessHandler(new CustomLogoutSuccessHandler()).permitAll()
                 .and().exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint())
-                .and().addFilterBefore(customUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+//                .and().addFilterBefore(customUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 //            .and().addFilterBefore(customUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
 //            .addFilterBefore(customAuthenticationFilter, AnonymousAuthenticationFilter.class);
     }

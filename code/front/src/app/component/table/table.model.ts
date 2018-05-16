@@ -5,6 +5,7 @@ export class TableModel {
     head: TableHeadModel[];
     data: any[];
     checkAll: boolean;
+    checkbox: boolean;
     onSelect: Function;
     onChangeData: Function;
 }
